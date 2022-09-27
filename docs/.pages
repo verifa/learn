@@ -1,0 +1,10 @@
+# Page tree
+
+nav:
+  - Home:
+      - index.md
+  - Tutorials: tutorials
+  # - Reference: reference
+  # - Commands: commands
+  # - FAQ: faq
+  - ...
