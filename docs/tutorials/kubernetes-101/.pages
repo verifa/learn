@@ -1,2 +1,10 @@
 arrange:
   - prerequisites.md
+  - create-k3d-cluster.md
+  - create-pod-cli.md
+  - overview.md
+  - create-pod-declarative.md
+  - create-deployment.md
+  - scaling.md
+  - exposing.md
+  - cleanup.md

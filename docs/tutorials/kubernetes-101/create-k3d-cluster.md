@@ -11,5 +11,5 @@ export KUBECONFIG=$PWD/k3d-kubeconfig.yaml
 kubectl get pods --namespace kube-system
 ```
 
-You should wait for all the pods in the `kube-system` namespace to be Running/Completed, in the actual hands-on there's no notion of namespaces anywhere, which means everything will be deployed into the `default` namespace.
-This is a very, very, bad practice in production clusters, but it makes our lives bit easier on the command line here.
+You should wait for all the pods in the `kube-system` namespace to be Running/Completed, in the rest of the content there's no notion of namespaces anywhere, which means everything will be deployed into the `default` namespace.
+This is a very, very, bad practice in production clusters, but it makes our lives bit easier during this tutorial.
