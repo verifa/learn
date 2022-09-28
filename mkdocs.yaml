@@ -1,11 +1,11 @@
-site_name: tutorials
-site_url: https://tutorials.verifa.io
+site_name: Learning Centre
+site_url: https://learn.verifa.io
 site_description: >-
-  TODO: Verifa tutorials
+  Learning technologies relevant to Continuous & Cloud practices through tutorials created by Verifa
 
 # Repository
-repo_name: verifa/tutorials
-repo_url: https://github.com/verifa/tutorials
+repo_name: verifa/learn
+repo_url: https://github.com/verifa/learn
 
 # Copyright
 copyright: Copyright &copy; 2022 Verifa

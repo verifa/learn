@@ -1,5 +1,4 @@
-# CI Workflow
-
+name: ci
 on:
   # run this workflow on any branch or a PR
   push:
@@ -9,7 +8,6 @@ on:
     branches:
       - "**"
 
-name: ci
 jobs:
   mkdocs:
     runs-on: ubuntu-latest
@@ -23,3 +21,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Build
         run: mkdocs build
+      - name: Publish
+        # Only run on main
+        if: github.ref == 'refs/heads/main'
+        run: mkdocs gh-deploy --force
