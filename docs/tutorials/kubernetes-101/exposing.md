@@ -13,16 +13,15 @@ Remember those labels we set in the pod/deployment spec? They can be used to poi
 Services come in many flavors, here's a quick overview
 
 - ClusterIP
-    - For intra-cluster traffic, your pods are available behind a single IP and DNS name
+  - For intra-cluster traffic, your pods are available behind a single IP and DNS name
 - NodePort
-    - For something like an ingress controller, this exposes your service on port X on all nodes
+  - For something like an ingress controller, this exposes your service on port X on all nodes
 - LoadBalancer
-    - This is typically spawns an external cloud resource (load balancer) pointing to your service, it uses the above two methods inside the cluster and does magic outside cluster to actually route the traffic. You can see the external IP in the cluster in the end, somehow. (well ok, there's a "Cloud Controller Manager" in the kube-system namespace, it's typically responsible for this magic show).
+  - This is typically spawns an external cloud resource (load balancer) pointing to your service, it uses the above two methods inside the cluster and does magic outside cluster to actually route the traffic. You can see the external IP in the cluster in the end, somehow. (well ok, there's a "Cloud Controller Manager" in the kube-system namespace, it's typically responsible for this magic show).
 
 Let's create a `Service` of type `ClusterIP` pointing to our service for fun:
 
-```yaml
-#service.yaml
+```yaml title="service.yaml"
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,8 +62,7 @@ Try browsing to [http://localhost:8080](http://localhost:8080) and you should se
 
 Ingress is for fancy L7 routing, similar to an API Gateway that some cloud providers offer. In fact; there's a new Kubernetes API called Gateway API which adds even more features on top of ingress features aiming to be able to be a cloud agnostic yet native API.
 
-```yaml
-#ingress.yaml
+```yaml title="ingress.yaml"
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

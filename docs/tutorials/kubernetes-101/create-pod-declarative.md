@@ -8,8 +8,7 @@ You can refer to official docs for more examples: [https://kubernetes.io/docs/co
 
 Modify the manifest below to use the `verifa/http-echo:latest` image:
 
-```yaml
-#pod.yaml
+```yaml title="pod.yaml"
 apiVersion: v1
 kind: Pod
 metadata:
@@ -34,7 +33,6 @@ kubectl describe pod http-echo
 
 Observe the pod with the commands and see if it starts up, you probably need to spam the commands a few times since it might take a while to pull the image.
 
-
 ??? info "Expand this after checking the pod status few times"
 
     ![crashloop-meme](../../assets/images/crashloop-meme.png)
@@ -49,7 +47,7 @@ Observe the pod with the commands and see if it starts up, you probably need to 
     
     Add the necessary environment variable to the manifest to get it running:
     
-    ```bash
+    ```yaml title="pod.yaml"
     #pod.yaml
     apiVersion: v1
     kind: Pod
@@ -65,7 +63,6 @@ Observe the pod with the commands and see if it starts up, you probably need to 
         ports:
         - containerPort: 5678
     ```
-    
 
 If you need to you can delete the pod in 2 ways:
 
@@ -74,9 +71,8 @@ kubectl delete pod <pod-name>
 kubectl delete -f pod.yaml
 ```
 
-    
 !!! tip "For help with manifests"
-    
+
     You can use the `kubectl explain` command to help you while writing manifests, try it with:
     ```bash
     kubectl explain pod.spec.containers
@@ -84,5 +80,3 @@ kubectl delete -f pod.yaml
     ```
     
     Another tool some find helpful is: [https://k8syaml.com/](https://k8syaml.com/) But it does not directly support Pods, since nobody writes pod manifests directly, next we look at what you would write instead.
-    
-
