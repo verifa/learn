@@ -15,4 +15,5 @@ k3d cluster create k8s-101
 k3d kubeconfig get k8s-101 > k3d-kubeconfig.yaml
 export KUBECONFIG=$PWD/k3d-kubeconfig.yaml
 kubectl get namespaces
+k3d cluster delete k8s-101
 ```
