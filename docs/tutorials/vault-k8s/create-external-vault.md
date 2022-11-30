@@ -6,7 +6,7 @@ A lot of tutorials install Vault inside the Kubernetes cluster using the Helm ch
 
 ```bash
 export VAULT_TOKEN="root" # in dev mode we can set the value for root token
-VAULT_VERSION="1.10.0"
+VAULT_VERSION="1.12.0"
 docker run --cap-add=IPC_LOCK -p 8200:8200 -d --name=dev-vault -e "VAULT_DEV_ROOT_TOKEN_ID=${VAULT_TOKEN}" --network ${DOCKER_NETWORK} vault:${VAULT_VERSION}
 export VAULT_ADDR=http://$(docker inspect dev-vault | jq -r ".[0].NetworkSettings.Networks.\"${DOCKER_NETWORK}\".IPAddress"):8200
 ```

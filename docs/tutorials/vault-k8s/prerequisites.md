@@ -2,6 +2,10 @@
 title: Prequisites
 ---
 
+!!! warning
+    Unfortunately this tutorial is tested only on Linux since the CSI driver only works on Linux.
+    The tutorial should work on most distributions, as long as k3d supports it.
+
 ## Install
 
 - [vault (for CLI)](https://developer.hashicorp.com/vault/docs/install)
@@ -11,7 +15,7 @@ title: Prequisites
 - [jq](https://stedolan.github.io/jq/download/)
 - [terraform](https://www.terraform.io/downloads)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [helm](https://helm.sh/docs/intro/install/)
+- [helm >=3.6](https://helm.sh/docs/intro/install/)
 
 ## Test k3d
 

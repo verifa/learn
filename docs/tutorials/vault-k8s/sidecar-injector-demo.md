@@ -4,7 +4,17 @@ title: Vault Agent sidecar injector demo
 
 ## Vault Terraform configuration
 
-```hcl title="vault-injector-role.tf"
+Create a new folder to hold the Terraform configuration for this section:
+
+```bash
+cd ..
+mkdir injector-demo
+cd injector-demo
+```
+
+Create `main.tf` which holds all the Terraform configuration:
+
+```hcl title="main.tf"
 provider "vault" {
   # Configured with environment variables:
   # VAULT_ADDR
@@ -32,23 +42,47 @@ resource "vault_kubernetes_auth_backend_role" "devweb-app" {
 }
 ```
 
-```yaml title="injector-demo-app.yaml"
+Apply the terraform configuration after reviewing the file and the plan:
+
+```bash
+terraform init
+terraform apply
+```
+
+## Sidecar injector
+
+Let's define a Pod manifest that accesses the secret using annotations for the configuration:
+
+```yaml title="sidecar-demo.yaml"
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sidecar-app
+---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: devwebapp
+  name: sidecar-app
   labels:
-    app: devwebapp
+    app: sidecar-app
   annotations:
     vault.hashicorp.com/agent-inject: 'true'
-    vault.hashicorp.com/role: 'devweb-app'
-    vault.hashicorp.com/agent-inject-secret-credentials.txt: 'secret/data/devwebapp/config'
+    vault.hashicorp.com/role: 'sidecar'
+    vault.hashicorp.com/agent-inject-secret-credentials.txt: 'secret/data/foo'
+    vault.hashicorp.com/agent-inject-template-credentials.txt: |
+      {{- with secret "secret/data/foo" -}}
+      secret-value: {{ .Data.data.key }}
+      {{- end }}
 spec:
-  serviceAccountName: internal-app
+  serviceAccountName: sidecar-app
   containers:
-    - name: app
-      image: burtlo/devwebapp-ruby:k8s
+    - name: sidecar-app
+      image: nginx
 ```
 
-### Pros and cons
+After the container is running we can examine the secret written:
+
+```bash
+kubectl exec sidecar-app -c sidecar-app -- cat /vault/secrets/credentials.txt
+```
 
