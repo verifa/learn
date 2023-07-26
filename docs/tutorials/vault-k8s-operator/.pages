@@ -1,0 +1,15 @@
+nav:
+  - index.md
+  - Tutorial:
+    - prerequisites.md
+    - install-vault.md
+    - setup-kubernetes-auth-method.md
+    - configure-secrets.md
+    - configure-dynamic-secrets.md
+    - vault-operator-install.md
+    - verinotes.md
+    - cleanup.md
+  #- kubernetes-auth.md
+  #- sidecar-injector-demo.md
+  #- csi-driver.md
+  #- external-secrets-operator.md

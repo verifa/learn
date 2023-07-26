@@ -8,7 +8,7 @@ repo_name: verifa/learn
 repo_url: https://github.com/verifa/learn
 
 # Copyright
-copyright: Copyright &copy; 2022 Verifa
+copyright: Copyright &copy; 2023 Verifa
 
 # Theme
 theme:
@@ -23,6 +23,7 @@ theme:
     - navigation.sections
     - navigation.tabs
     - navigation.top
+    #- navigation.expand
     - content.code.annotate
     - toc.follow
 
@@ -50,6 +51,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets:
       check_paths: true
+      base_path: ./docs
   - pymdownx.superfences
   - meta
   - toc:

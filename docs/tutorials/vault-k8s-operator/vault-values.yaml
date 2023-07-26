@@ -1,0 +1,7 @@
+server:
+  dev:
+    enabled: true
+    devRootToken: "root"
+  logLevel: debug
+injector:
+  enabled: "false"

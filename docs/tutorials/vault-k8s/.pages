@@ -1,10 +1,12 @@
-arrange:
-  - prerequisites.md
-  - create-k3d-cluster.md
-  - create-external-vault.md
-  - sidecar-injector-install.md
-  - kubernetes-auth.md
-  - sidecar-injector-demo.md
-  - csi-driver.md
-  - external-secrets-operator.md
-  - cleanup.md
+nav:
+  - index.md
+  - Tutorial:
+    - prerequisites.md
+    - create-k3d-cluster.md
+    - create-external-vault.md
+    - sidecar-injector-install.md
+    - kubernetes-auth.md
+    - sidecar-injector-demo.md
+    - csi-driver.md
+    - external-secrets-operator.md
+    - cleanup.md

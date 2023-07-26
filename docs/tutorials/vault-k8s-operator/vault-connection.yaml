@@ -1,0 +1,9 @@
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  namespace: vso-system
+  name: default #special name, would allow us to skip some configs down the line as it defaults to 'default'
+spec:
+  # address to the Vault server.
+  address: http://vault.vault.svc.cluster.local:8200

@@ -10,7 +10,6 @@ title: Prequisites
 
 - [vault (for CLI)](https://developer.hashicorp.com/vault/docs/install)
 - [docker](https://docs.docker.com/get-docker) (or similar, such as [Rancher desktop](https://docs.rancherdesktop.io/getting-started/installation))
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [k3d](https://k3d.io/v5.4.6/#installation)
 - [jq](https://stedolan.github.io/jq/download/)
 - [terraform](https://www.terraform.io/downloads)
