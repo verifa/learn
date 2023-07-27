@@ -2,14 +2,14 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  namespace: vso-system
+  namespace: verinotes
   name: verinotes-auth-static
 spec:
   # required configuration
   # VaultConnectionRef of the corresponding VaultConnection CustomResource.
   # If no value is specified the Operator will default to the `default` VaultConnection,
   # configured in its own Kubernetes namespace.
-  vaultConnectionRef: default
+  #vaultConnectionRef: default
   # Method to use when authenticating to Vault.
   method: kubernetes
   # Mount to use when authenticating to auth method.
@@ -21,18 +21,20 @@ spec:
     # ServiceAccount to use when authenticating to Vault
     # it is recommended to always provide a unique serviceAccount per Pod/application
     serviceAccount: verinotes
+    audiences:
+    - vault
 ---
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  namespace: vso-system
+  namespace: verinotes
   name: verinotes-auth-dynamic
 spec:
   # required configuration
   # VaultConnectionRef of the corresponding VaultConnection CustomResource.
   # If no value is specified the Operator will default to the `default` VaultConnection,
   # configured in its own Kubernetes namespace.
-  vaultConnectionRef: default
+  #vaultConnectionRef: default
   # Method to use when authenticating to Vault.
   method: kubernetes
   # Mount to use when authenticating to auth method.
@@ -44,3 +46,5 @@ spec:
     # ServiceAccount to use when authenticating to Vault
     # it is recommended to always provide a unique serviceAccount per Pod/application
     serviceAccount: verinotes
+    audiences:
+    - vault

@@ -6,7 +6,7 @@ We are going to be using Kubernetes as the Vault auth method in this tutorial be
 
 ## Enable the Auth Method
 
-The Helm Chart installation has already done some pre-requisite work for us, like creating a ServiceAccount behind the scenes. We only have to enable the method as Vault is already able to validate the authentication request at this point.
+The Helm Chart installation has already done some pre-requisite work for us, like creating a `ServiceAccount` behind the scenes. We only have to enable the method as Vault is already able to validate the authentication request at this point. If Vault would be running externally, there would be bit more work to be done. You can check out [vault-k8s tutorial](../vault-k8s/kubernetes-auth.md) for more info on the Kubernetes Auth method.
 
 Open interactive shell in the Vault server container:
 

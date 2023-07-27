@@ -20,6 +20,12 @@ We will create a `VaultConnection` CR that basically is just the address of the 
 --8<-- "tutorials/vault-k8s-operator/vault-connection.yaml"
 ```
 
+Apply:
+
+```bash
+kubectl apply -f vault-connection.yaml
+```
+
 ### Auth to Vault
 
 Next we will create two `VaultAuth` CRs which are application specific resources:
@@ -28,6 +34,12 @@ Next we will create two `VaultAuth` CRs which are application specific resources
 --8<-- "tutorials/vault-k8s-operator/vault-auth.yaml"
 ```
 
-One of these we use with static secrets and one with dynamic secrets.
+First one of these we use with static secrets and the second one with dynamic secrets.
+
+Apply:
+
+```bash
+kubectl apply -f vault-auth.yaml
+```
 
 Now we are all set to consume some secrets!

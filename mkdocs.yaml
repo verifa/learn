@@ -25,6 +25,7 @@ theme:
     - navigation.top
     #- navigation.expand
     - content.code.annotate
+    - content.code.copy
     - toc.follow
 
 # Plugins

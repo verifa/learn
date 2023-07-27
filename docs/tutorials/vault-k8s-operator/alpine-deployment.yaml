@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpine-deployment
+  labels:
+    app: alpine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpine
+  template:
+    metadata:
+      labels:
+        app: alpine
+    spec:
+      containers:
+      - name: alpine
+        image: alpine:latest
+        command: ["/bin/sh","-c","--"]
+        args: ["sleep 99d"]
+        volumeMounts:
+          - name: secret-volume
+            mountPath: /postgres-secret
+            readOnly: true
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: vso-postgres-creds
+

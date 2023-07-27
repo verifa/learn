@@ -14,11 +14,18 @@ Create a file called `postgres.yaml` with the below contents:
     --8<-- "tutorials/vault-k8s-operator/postgres.yaml"
     ```
 
+Create the yaml file with contents from above and then we will also create the namespace before applying:
+
+```bash
+kubectl create namespace verinotes
+kubectl -f postgres.yaml
+```
+
 You might have noticed the highlighted line, there we are setting a static password for the `postgres` user. This is needed so we can bootstrap the secrets engine later, in production environment we can have Vault rotate the password after bootstrapping for additional security.
 
 ## Configuring Database Secrets Engine
 
-Let's enable the database secrets engine and configure it with details to connect to the newly create Postgres instance, note the static password used during installation is now used when bootstrapping the secret engine. This user is needed by Vault to create the dynamic users that the application will use when connecting. Again attach to the Vault server to run the commands, here's the attach command first as a reminder:
+Let's enable the database secrets engine and configure it with details to connect to the newly create Postgres instance. Again attach to the Vault server to run the commands, here's the attach command first as a reminder:
 
 ```bash
 kubectl exec -it vault-0 -n vault -- /bin/sh
@@ -37,6 +44,8 @@ vault write database/config/verinotes-postgres \
     password_authentication="scram-sha-256"
 ```
 
+Note the static password used during installation is now used when bootstrapping the secret engine. This user is needed by Vault to create the dynamic users that the application will use when connecting.
+
 Now we are going to create a role and tell that the dynamic users are going to be created with all privileges to the database for the sake of the demo:
 
 ```bash
@@ -44,17 +53,19 @@ vault write database/roles/verinotes \
     db_name="verinotes-postgres" \
     creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
-    default_ttl="1h" \
-    max_ttl="24h"
+    default_ttl="1m" \
+    max_ttl="1m"
 ```
+
+!!! warning
+    Note that the `default_ttl` and `max_ttl` are set to only 1 minute, change these values to something more realistic in production! You don't want to cause excessive load and restarts of pods because of this.
 
 Now we need another policy and role to consume the dynamic secret:
 
-
 ```bash
 vault policy write verinotes-postgres - <EOF
-path "database/roles/verinotes" {
-  capabilities = {"read"}
+path "database/creds/verinotes" {
+  capabilities = ["read"]
 }
 EOF
 

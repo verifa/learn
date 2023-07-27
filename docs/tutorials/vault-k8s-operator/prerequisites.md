@@ -2,10 +2,6 @@
 title: Prequisites
 ---
 
-!!! warning
-    Unfortunately this tutorial is tested only on Linux since the CSI driver only works on Linux.
-    The tutorial should work on most distributions, as long as k3d supports it.
-
 ## Install
 
 - [docker](https://docs.docker.com/get-docker) (or similar, such as [Rancher desktop](https://docs.rancherdesktop.io/getting-started/installation) or [Podman Desktop](https://podman-desktop.io/docs/Installation))
