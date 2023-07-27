@@ -24,12 +24,13 @@ Apply the resource:
 kubectl apply -f static-secret.yaml
 ```
 
+### Verify the Secret is Created
+
 When testing this I noticed it was taking almost 2 minutes for the `Secret` to be created, but your experience might be different. Check if the secret is created:
 
 ```bash
 kubectl get secrets -n verinotes
 ```
-
 
 You should see a secret called `static-secret`, if not try to search the logs of the operator to see if there are errors or it just has not happened yet:
 
@@ -46,6 +47,8 @@ Once the secret is there, you can verify it matches the values you set:
 echo "username: $(kubectl get secret static-secret -n verinotes -o jsonpath='{.data.username}' | base64 -d) \
 	password: $(kubectl get secret static-secret -n verinotes -o jsonpath='{.data.password}' | base64 -d)"
 ```
+
+There's nothing too exciting about this, so let's next setup the demo application and it will use a dynamic secret to connect to the Postgres database.
 
 
 ## Dynamic Secrets
@@ -72,6 +75,9 @@ Now this will already create a secret which will be auto-rotated by the operator
 kubectl get secret vso-postgres-creds
 ```
 
+
+### Deploying VeriNotes
+
 Now deploy VeriNotes `Deployment`:
 
 ```yaml title="verinotes-deployment.yaml"
@@ -96,6 +102,8 @@ You can also visit the website if you like to, but it's not mandatory since the 
 open http://localhost:3000 && kubectl port-forward deploy/verinotes-deployment 3000:3000
 ```
 
+### Rotating Secret
+
 As stated earlier, we configured the Vault Operator to also do a rolling restart on the `Deployment` whenever the secret is rotated, this seems to work nicely and you can see that before the TTL (1 minute), a new pod will come up and the old one will be terminated (once new is up and running of course):
 
 ```bash
@@ -104,6 +112,8 @@ verinotes-deployment-7bc7df7dd6-nfr4w   1/1     Running       0          2s
 ```
 
 This is quite neat, because the connection to the database will terminate when the user is removed by Vault in the backend (when it's time to rotate). In the demo the TTL is very short, you probably want to use a higher value in production to reduce load on your Kubernetes API server and Vault.
+
+### Environment Variables vs File Mounts
 
 It's also worthy to note that VeriNotes uses environment values to receive the secret, this is not ideal actually. The most secure way to consume secrets is from a memory backed (tmpfs is used by default for secrets!) volume as files, kubelet will also update the file contents without restarting the pod. Let's demostrate this:
 
@@ -114,6 +124,7 @@ kubectl apply -f alpine-deployment.yaml
 ```
 
 Observe the values, after a minute or so the value should change:
+
 
 ```bash
 kubectl exec -it deployment/alpine-deployment -- cat /postgres-secret/username
